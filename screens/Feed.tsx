@@ -8,69 +8,50 @@ import { useRouter } from 'expo-router';
 const POSTS = [
   {
     id: '1',
-    username: 'john_capture',
-    location: 'New york',
-    image: 'https://images.unsplash.com/photo-1504595403659-9088ce801e29?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    caption: 'Dudes #lovedogs',
-    likes: 124,
-  },
-  {
-    id: '2',
-    username: 'marta_lens',
-    location: 'Mallorca, Spain',
-    image: 'https://images.unsplash.com/photo-1503803548695-c2a7b4a5b875?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    caption: 'Atardeceres que inspiran.',
-    likes: 89,
+    username: '@john_capture',
+    content: 'La arquitectura de esta app está empezando a cobrar vida propia. Menos es definitivamente más.',
+    timestamp: 'AHORA',
+    category: 'DESIGN', 
+    likes: 8,
   },
    {
-    id: '3',
-    username: 'vale27',
-    location: 'London, United Kingdon',
-    image: 'https://images.unsplash.com/photo-1509824227185-9c5a01ceba0d?q=80&w=715&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    caption: 'Alive.',
-    likes: 81,
+    id: '2',
+    username: '@val27',
+    content: 'Feeling great today.',
+    timestamp: 'AHORA',
+    category: 'EMOTIONAL', 
+    likes: 8,
   },
 ];
 
 const FeedScreen = () => {
   const router = useRouter();
 
-  const renderItem = ({ item }: { item: typeof POSTS[0] }) => (
-    <View style={feedStyles.postContainer}>
-      {/* Header del Post */}
-      <View style={feedStyles.postHeader}>
-        <View style={feedStyles.userAvatar} />
-        <View>
-          <Text style={feedStyles.username}>{item.username}</Text>
-          <Text style={feedStyles.location}>{item.location}</Text>
-        </View>
-      </View>
-
-      {/* Imagen */}
-      <Image 
-        source={{ uri: item.image }} 
-        style={feedStyles.postImage} 
-        resizeMode="cover"
-      />
-
-      {/* Acciones */}
-      <View style={feedStyles.actionButtons}>
-        <TouchableOpacity><Ionicons name="heart-outline" size={24} color="white" /></TouchableOpacity>
-        <TouchableOpacity><Ionicons name="chatbubble-outline" size={22} color="white" /></TouchableOpacity>
-      </View>
-
-      {/* Caption y Likes */}
-      <View style={feedStyles.interactionInfo}>
-        <Text style={feedStyles.likesText}>{item.likes} likes</Text>
-        <Text style={feedStyles.captionText}>
-          <Text style={{ fontWeight: 'bold' }}>{item.username} </Text>
-          {item.caption}
-        </Text>
-      </View>
-      
-      <View style={feedStyles.divider} />
+  const renderItem = ({ item} : { item: typeof POSTS[0] }) => (
+  <View style={feedStyles.postContainer}>
+    {/* Línea de esencia: Conector vertical */}
+    <View style={feedStyles.timelineTrack}>
+      <View style={feedStyles.timelineDot} />
+      <View style={feedStyles.timelineLine} />
     </View>
-  );
+
+    <View style={feedStyles.postContentContainer}>
+     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <Text style={feedStyles.userName}>{item.username}</Text>
+        </View>
+      <Text style={feedStyles.categoryTag}>{item.category}</Text>
+      <Text style={feedStyles.mainText}>{item.content}</Text>
+      <Text style={feedStyles.timestamp}>{item.timestamp}</Text>
+
+     
+      <View style={feedStyles.minimalActions}>
+        <TouchableOpacity><Ionicons name="flash-outline" size={18} color="#555" /></TouchableOpacity>
+        <TouchableOpacity><Ionicons name="chatbubble-outline" size={18} color="#555" /></TouchableOpacity>
+        <TouchableOpacity><Ionicons name="heart-outline" size={18} color="#555" /></TouchableOpacity>
+      </View>
+    </View>
+  </View>
+);
 
   return (
     <View style={feedStyles.mainContainer}>
@@ -80,7 +61,7 @@ const FeedScreen = () => {
         
         {/* Header de la App */}
         <View style={feedStyles.appHeader}>
-          <Text style={[authStyles.appName, { fontSize: 24, marginBottom: 0 }]}>FOCALIZE.</Text>
+          <Text style={[feedStyles.appName, { fontSize: 24, marginBottom: 0 }]}>FOCALIZE.</Text>
 
           <View style={feedStyles.headerIcons}>
             <TouchableOpacity onPress={() => console.log("Subir post")}>

@@ -8,63 +8,72 @@ const LoginScreen = () => {
   return (
     <View style={authStyles.pageContainer}>
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
-      
-      <KeyboardAvoidingView 
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
+     
+      <ImageBackground 
+        source={BackgroundPhoto} 
+        style={authStyles.backgroundImage} // Usamos el nuevo estilo absoluto
+        resizeMode="cover"
       >
-        <ScrollView 
-          contentContainerStyle={{ flexGrow: 1 }}
-          bounces={false}
-          showsVerticalScrollIndicator={false}
+       
+        <View style={authStyles.headerOverlay} />
+
+        <KeyboardAvoidingView 
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
-          <ImageBackground 
-            source={BackgroundPhoto} 
-            style={authStyles.headerSection}
-            resizeMode="cover"
+          <ScrollView 
+            contentContainerStyle={{ 
+              flexGrow: 1, 
+              justifyContent: 'center', 
+              alignItems: 'center',
+              width: '100%' 
+            }}
+            bounces={false}
+            showsVerticalScrollIndicator={false}
           >
-            <View style={authStyles.headerOverlay} />
-            <View style={authStyles.headerTextContainer}>
-              <Text style={authStyles.appName}>FOCALIZE.</Text>
-              <Text style={authStyles.welcomeText}>Captura tu mundo</Text>
-            </View>
-          </ImageBackground>
-
-          <View style={authStyles.formSection} >
-            <Text style={authStyles.formTitle}>Login</Text>
             
-            <TextInput 
-              placeholder="Email" 
-              placeholderTextColor="#999"
-              style={authStyles.input}
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
+            <View style={authStyles.formCard}>
+              
+              <View style={authStyles.headerTextContainer}>
+                <Text style={authStyles.appName}>FOCALIZE.</Text>
+                <Text style={authStyles.welcomeText}></Text>
+              </View>
 
-            <TextInput 
-              placeholder="Password" 
-              placeholderTextColor="#999"
-              secureTextEntry
-              style={authStyles.input}
-            />
+              <TextInput 
+                placeholder="Email" 
+                placeholderTextColor="#999"
+                style={authStyles.input}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
 
-            <TouchableOpacity>
-              <Text style={authStyles.forgotPasswordText}>Forgot your password?</Text>
-            </TouchableOpacity>
+              <TextInput 
+                placeholder="Password" 
+                placeholderTextColor="#999"
+                secureTextEntry
+                style={authStyles.input}
+              />
 
-            <TouchableOpacity style={authStyles.mainButton} activeOpacity={0.8} onPress={() => router.push('/feed')}>
-              <Text style={authStyles.mainButtonText}>Log In</Text>
-            </TouchableOpacity>
+              <TouchableOpacity 
+                style={authStyles.mainButton} 
+                activeOpacity={0.9} 
+                onPress={() => router.push('/feed')} 
+              >
+                <Text style={authStyles.mainButtonText}>Sign in</Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity 
-              onPress={() => router.push('/signup')}>
-              <Text style={authStyles.linkText}>
-                Don't have an account? <Text style={authStyles.linkTextBold}>Sign up</Text>
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+              <TouchableOpacity 
+                onPress={() => router.push('/signup')}
+                style={{ marginTop: 10 }}
+              >
+                <Text style={authStyles.linkText}>
+                  Dont have an account? <Text style={authStyles.linkTextBold}>Sign Up</Text>
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </ImageBackground>
     </View>
   );
 };
