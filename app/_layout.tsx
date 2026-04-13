@@ -7,6 +7,7 @@ export default function Layout() {
       <Stack.Screen name="signup" />
       <Stack.Screen name="feed" />
       <Stack.Screen name="profile" />
+      <Stack.Screen name="post"/>
     </Stack>
   );
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity, StatusBar } from 'react-native';
-import { authStyles } from '../styles/authStyles'; 
-import { feedStyles } from '../styles/feedStyles'; 
+import feedStyles from "../styles/feedStyles"
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router'; 
 
@@ -64,7 +63,7 @@ const FeedScreen = () => {
           <Text style={[feedStyles.appName, { fontSize: 24, marginBottom: 0 }]}>FOCALIZE.</Text>
 
           <View style={feedStyles.headerIcons}>
-            <TouchableOpacity onPress={() => console.log("Subir post")}>
+            <TouchableOpacity onPress={() => router.push('/post')}>
               <Ionicons name="add-circle-outline" size={28} color="white" />
             </TouchableOpacity>
             
