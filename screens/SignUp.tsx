@@ -34,7 +34,7 @@ const SignUpScreen = () => {
 
       if (response.ok) {
         Alert.alert("Éxito", "Usuario creado correctamente");
-        router.push('/feed');
+        router.push('/');
       } else {
         Alert.alert("Error", data.detail || "No se pudo registrar");
       }

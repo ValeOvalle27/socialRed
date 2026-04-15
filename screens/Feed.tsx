@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StatusBar } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, Text, FlatList, TouchableOpacity, StatusBar, RefreshControl } from 'react-native';
 import feedStyles from "../styles/feedStyles";
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { useRouter, useFocusEffect } from 'expo-router';
 
 const API_URL = "http://192.168.0.16:8000";
 
 const FeedScreen = () => {
   const router = useRouter();
   const [posts, setPosts] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
-  // 🔥 cargar posts
   const fetchPosts = async () => {
     try {
       const response = await fetch(`${API_URL}/posts/`);
@@ -24,9 +24,19 @@ const FeedScreen = () => {
     }
   };
 
-  useEffect(() => {
-    fetchPosts();
-  }, []);
+  // 🔥 SE EJECUTA CADA VEZ QUE LA PANTALLA SE ABRE
+  useFocusEffect(
+    useCallback(() => {
+      fetchPosts();
+    }, [])
+  );
+
+  // 🔄 PULL TO REFRESH
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchPosts();
+    setRefreshing(false);
+  };
 
   const renderItem = ({ item }) => (
     <View style={feedStyles.postContainer}>
@@ -102,6 +112,14 @@ const FeedScreen = () => {
           keyExtractor={(item) => item.id.toString()}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 100 }}
+          
+          // 🔥 REFRESH MANUAL
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }
         />
       </View>
     </View>

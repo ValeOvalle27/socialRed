@@ -5,6 +5,8 @@ import {
 } from 'react-native';
 import { authStyles } from '../styles/authStyles';
 import { router } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const BackgroundPhoto = require('../assets/images/background.jpg');
 
@@ -38,6 +40,7 @@ const LoginScreen = () => {
 
       if (response.ok) {
         Alert.alert("Éxito", "Login correcto");
+        await AsyncStorage.setItem("user", JSON.stringify(data.user));
         router.push('/feed');
       } else {
         Alert.alert("Error", data.detail || "Credenciales incorrectas");
