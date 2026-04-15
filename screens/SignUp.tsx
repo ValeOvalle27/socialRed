@@ -1,25 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   View, Text, TextInput, TouchableOpacity, ImageBackground, 
-  KeyboardAvoidingView, Platform, ScrollView, StatusBar 
+  KeyboardAvoidingView, Platform, ScrollView, StatusBar, Alert
 } from 'react-native';
 import { authStyles } from '../styles/authStyles';
 import { router } from 'expo-router';
 
 const BackgroundPhoto = require('../assets/images/background.jpg');
 
+// ⚠️ IMPORTANTE: cambia esta URL según tu caso
+const API_URL = "http://192.168.0.16:8000";
 const SignUpScreen = () => {
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleRegister = async () => {
+    try {
+      const response = await fetch(`${API_URL}/users/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        Alert.alert("Éxito", "Usuario creado correctamente");
+        router.push('/feed');
+      } else {
+        Alert.alert("Error", data.detail || "No se pudo registrar");
+      }
+
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Error", "No conecta con el servidor");
+    }
+  };
+
   return (
     <View style={authStyles.pageContainer}>
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
-      
       
       <ImageBackground 
         source={BackgroundPhoto} 
         style={authStyles.backgroundImage} 
         resizeMode="cover"
       >
-        
         <View style={authStyles.headerOverlay} />
 
         <KeyboardAvoidingView 
@@ -33,10 +67,7 @@ const SignUpScreen = () => {
               alignItems: 'center',
               width: '100%' 
             }}
-            bounces={false}
-            showsVerticalScrollIndicator={false}
           >
-            
             <View style={authStyles.formCard}>
               
               <View style={authStyles.headerTextContainer}>
@@ -47,41 +78,44 @@ const SignUpScreen = () => {
               <TextInput 
                 placeholder="Username" 
                 style={authStyles.input}
-                placeholderTextColor="#999" 
-                autoCapitalize="none"
+                placeholderTextColor="#999"
+                value={username}
+                onChangeText={setUsername}
               />
 
               <TextInput 
                 placeholder="Email" 
-                placeholderTextColor="#999"
                 style={authStyles.input}
-                keyboardType="email-address"
-                autoCapitalize="none"
+                placeholderTextColor="#999"
+                value={email}
+                onChangeText={setEmail}
               />
 
               <TextInput 
                 placeholder="Password" 
-                placeholderTextColor="#999"
                 secureTextEntry
                 style={authStyles.input}
+                placeholderTextColor="#999"
+                value={password}
+                onChangeText={setPassword}
               />
 
               <TouchableOpacity 
                 style={authStyles.mainButton} 
-                activeOpacity={0.9} 
-                onPress={() => router.push('/feed')} // Navegación de prueba
+                onPress={handleRegister}
               >
-                <Text style={authStyles.mainButtonText}>Create Account</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity 
-                onPress={() => router.push('/')}
-                style={{ marginTop: 10 }}
-              >
-                <Text style={authStyles.linkText}>
-                  Already have an account? <Text style={authStyles.linkTextBold}>Log In</Text>
+                <Text style={authStyles.mainButtonText}>
+                  Create Account
                 </Text>
               </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => router.push('/')}>
+                <Text style={authStyles.linkText}>
+                  Already have an account?{" "}
+                  <Text style={authStyles.linkTextBold}>Log In</Text>
+                </Text>
+              </TouchableOpacity>
+
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
@@ -91,4 +125,3 @@ const SignUpScreen = () => {
 };
 
 export default SignUpScreen;
-
