@@ -74,37 +74,37 @@ const SignUpScreen = () => {
               
               <View style={authStyles.headerTextContainer}>
                 <Text style={authStyles.appName}>FOCALIZE.</Text>
-                <Text style={authStyles.welcomeText}>New Account</Text>
+                <Text style={authStyles.welcomeText}>Registrarme</Text>
               </View>
 
               <CustomInput 
-                placeholder="Username" 
+                placeholder="Nombre de usuario" 
                 value={username}
                 onChangeText={setUsername}
               />
 
               <CustomInput 
-                placeholder="Email" 
+                placeholder="Correo" 
                 value={email}
                 onChangeText={setEmail}
               />
 
               <CustomInput 
-                placeholder="Password" 
+                placeholder="Contraseña" 
                 secureTextEntry
                 value={password}
                 onChangeText={setPassword}
               />
 
               <CustomButton 
-                title= 'Create Account'
+                title= 'Crear Cuenta'
                 onPress={handleRegister}
               />
 
               <TouchableOpacity onPress={() => router.push('/')}>
                 <Text style={authStyles.linkText}>
-                  Already have an account?{" "}
-                  <Text style={authStyles.linkTextBold}>Log In</Text>
+                 ¿Ya tiene una cuenta?{" "}
+                  <Text style={authStyles.linkTextBold}>Ingresar</Text>
                 </Text>
               </TouchableOpacity>
 
