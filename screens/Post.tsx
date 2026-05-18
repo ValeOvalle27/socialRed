@@ -9,7 +9,7 @@ import { postStyles } from '../styles/postStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // 🔥 CAMBIA POR TU IP
-const API_URL = "http://192.168.0.16:8000";
+const API_URL = "https://backend-hibridas.vercel.app";
 
 export default function CreatePostScreen() {
   const [postText, setPostText] = useState('');

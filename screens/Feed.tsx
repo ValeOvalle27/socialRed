@@ -4,7 +4,7 @@ import feedStyles from "../styles/feedStyles";
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter, useFocusEffect } from 'expo-router';
 
-const API_URL = "http://192.168.0.16:8000";
+const API_URL = "https://backend-hibridas.vercel.app";
 
 const FeedScreen = () => {
   const router = useRouter();

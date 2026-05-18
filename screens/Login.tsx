@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const BackgroundPhoto = require('../assets/images/background.jpg');
 
 // ✅ TU IP
-const API_URL = "http://192.168.0.16:8000";
+const API_URL = "https://backend-hibridas.vercel.app";
 
 const LoginScreen = () => {
 

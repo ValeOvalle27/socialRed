@@ -5,7 +5,7 @@ import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { profileStyles } from '../styles/profileStyles';
 
-const API_URL = "http://192.168.0.16:8000";
+const API_URL = "https://backend-hibridas.vercel.app";
 
 const ProfileScreen = () => {
   const router = useRouter();

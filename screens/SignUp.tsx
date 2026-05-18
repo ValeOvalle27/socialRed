@@ -9,7 +9,7 @@ import { router } from 'expo-router';
 const BackgroundPhoto = require('../assets/images/background.jpg');
 
 // ⚠️ IMPORTANTE: cambia esta URL según tu caso
-const API_URL = "http://192.168.0.16:8000";
+const API_URL = "https://backend-hibridas.vercel.app";
 const SignUpScreen = () => {
 
   const [username, setUsername] = useState("");
