@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { 
-  View, Text, TextInput, TouchableOpacity, ImageBackground, 
-  KeyboardAvoidingView, Platform, ScrollView, StatusBar, Alert 
+import {
+  View, Text, TextInput, TouchableOpacity, ImageBackground,
+  KeyboardAvoidingView, Platform, ScrollView, StatusBar, Alert
 } from 'react-native';
 import { authStyles } from '../styles/authStyles';
 import { router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CustomInput from '../components/input/CustomInput';
+import CustomButton from '../components/Button/CustomButton';
+
 
 
 const BackgroundPhoto = require('../assets/images/background.jpg');
@@ -55,61 +58,54 @@ const LoginScreen = () => {
   return (
     <View style={authStyles.pageContainer}>
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
-     
-      <ImageBackground 
-        source={BackgroundPhoto} 
+
+      <ImageBackground
+        source={BackgroundPhoto}
         style={authStyles.backgroundImage}
         resizeMode="cover"
       >
-       
+
         <View style={authStyles.headerOverlay} />
 
-        <KeyboardAvoidingView 
+        <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
-          <ScrollView 
-            contentContainerStyle={{ 
-              flexGrow: 1, 
-              justifyContent: 'center', 
+          <ScrollView
+            contentContainerStyle={{
+              flexGrow: 1,
+              justifyContent: 'center',
               alignItems: 'center',
-              width: '100%' 
+              width: '100%'
             }}
           >
-            
+
             <View style={authStyles.formCard}>
-              
+
               <View style={authStyles.headerTextContainer}>
                 <Text style={authStyles.appName}>FOCALIZE.</Text>
               </View>
 
-              <TextInput 
-                placeholder="Email" 
-                placeholderTextColor="#999"
-                style={authStyles.input}
-                keyboardType="email-address"
-                autoCapitalize="none"
+              <CustomInput
+                placeholder="Email"
                 value={email}
                 onChangeText={setEmail}
               />
 
-              <TextInput 
-                placeholder="Password" 
-                placeholderTextColor="#999"
+
+              <CustomInput
+                placeholder="Password"
                 secureTextEntry
-                style={authStyles.input}
                 value={password}
                 onChangeText={setPassword}
               />
 
-              <TouchableOpacity 
-                style={authStyles.mainButton} 
+              <CustomButton
+                title="Sign in"
                 onPress={handleLogin}
-              >
-                <Text style={authStyles.mainButtonText}>Sign in</Text>
-              </TouchableOpacity>
+              />
 
-              <TouchableOpacity 
+              <TouchableOpacity
                 onPress={() => router.push('/signup')}
                 style={{ marginTop: 10 }}
               >

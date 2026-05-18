@@ -5,6 +5,8 @@ import {
 } from 'react-native';
 import { authStyles } from '../styles/authStyles';
 import { router } from 'expo-router';
+import CustomInput from '../components/input/CustomInput';
+import CustomButton from '../components/Button/CustomButton';
 
 const BackgroundPhoto = require('../assets/images/background.jpg');
 
@@ -75,39 +77,29 @@ const SignUpScreen = () => {
                 <Text style={authStyles.welcomeText}>New Account</Text>
               </View>
 
-              <TextInput 
+              <CustomInput 
                 placeholder="Username" 
-                style={authStyles.input}
-                placeholderTextColor="#999"
                 value={username}
                 onChangeText={setUsername}
               />
 
-              <TextInput 
+              <CustomInput 
                 placeholder="Email" 
-                style={authStyles.input}
-                placeholderTextColor="#999"
                 value={email}
                 onChangeText={setEmail}
               />
 
-              <TextInput 
+              <CustomInput 
                 placeholder="Password" 
                 secureTextEntry
-                style={authStyles.input}
-                placeholderTextColor="#999"
                 value={password}
                 onChangeText={setPassword}
               />
 
-              <TouchableOpacity 
-                style={authStyles.mainButton} 
+              <CustomButton 
+                title= 'Create Account'
                 onPress={handleRegister}
-              >
-                <Text style={authStyles.mainButtonText}>
-                  Create Account
-                </Text>
-              </TouchableOpacity>
+              />
 
               <TouchableOpacity onPress={() => router.push('/')}>
                 <Text style={authStyles.linkText}>
