@@ -171,5 +171,64 @@ export const profileStyles = StyleSheet.create({
     backgroundColor: '#111',
     width: '90%',
     alignSelf: 'flex-end',
-  }
+  },
+
+  modalOverlay: {
+  flex: 1,
+  backgroundColor: 'rgba(0,0,0,0.6)',
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+
+modalContainer: {
+  width: '88%',
+  backgroundColor: '#1A1A1A',
+  borderRadius: 25,
+  padding: 25,
+},
+
+modalTitle: {
+  color: 'white',
+  fontSize: 22,
+  fontWeight: '700',
+  marginBottom: 20,
+},
+
+modalInput: {
+  backgroundColor: '#2A2A2A',
+  borderRadius: 14,
+  paddingHorizontal: 18,
+  height: 55,
+  color: 'white',
+  marginBottom: 15,
+},
+
+modalActions: {
+  flexDirection: 'row',
+  justifyContent: 'flex-end',
+  gap: 12,
+  marginTop: 10,
+},
+
+cancelButton: {
+  paddingHorizontal: 18,
+  paddingVertical: 10,
+},
+
+cancelButtonText: {
+  color: '#AAA',
+  fontWeight: '600',
+},
+
+saveButton: {
+  backgroundColor: 'white',
+  paddingHorizontal: 20,
+  paddingVertical: 10,
+  borderRadius: 12,
+},
+
+saveButtonText: {
+  color: '#000',
+  fontWeight: '700',
+},
 });

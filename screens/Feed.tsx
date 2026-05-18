@@ -13,6 +13,7 @@ import feedStyles from "../styles/feedStyles";
 
 import HeaderFeed from "../components/Header/HeaderFeed";
 import PostCard from "../components/PostCard/PostCard";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const API_URL = "https://backend-hibridas.vercel.app";
 
@@ -61,8 +62,10 @@ const FeedScreen = () => {
   );
 
   return (
-    <View style={feedStyles.mainContainer}>
-
+     <SafeAreaView
+    style={feedStyles.mainContainer}
+    edges={["top"]}
+  >
       <StatusBar barStyle="light-content" />
 
       <View style={feedStyles.contentWrapper}>
@@ -84,7 +87,7 @@ const FeedScreen = () => {
         />
 
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

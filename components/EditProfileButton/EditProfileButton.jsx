@@ -3,17 +3,17 @@ import { TouchableOpacity, Text } from "react-native";
 
 import { profileStyles } from "../../styles/profileStyles";
 
-const EditProfileButton = () => {
+const EditProfileButton = ({ onPress }) => {
   return (
-    <TouchableOpacity style={profileStyles.editButton}>
-
-      <Text style={{
-        color: "white",
-        fontWeight: "600"
-      }}>
-        Edit Profile
+    <TouchableOpacity style={profileStyles.editButton} onPress={onPress}>
+      <Text
+        style={{
+          color: "white",
+          fontWeight: "600",
+        }}
+      >
+        Editar Perfil
       </Text>
-
     </TouchableOpacity>
   );
 };

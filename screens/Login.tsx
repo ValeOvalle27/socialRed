@@ -87,21 +87,21 @@ const LoginScreen = () => {
               </View>
 
               <CustomInput
-                placeholder="Email"
+                placeholder="Correo"
                 value={email}
                 onChangeText={setEmail}
               />
 
 
               <CustomInput
-                placeholder="Password"
+                placeholder="Contraseña"
                 secureTextEntry
                 value={password}
                 onChangeText={setPassword}
               />
 
               <CustomButton
-                title="Sign in"
+                title="Ingresar"
                 onPress={handleLogin}
               />
 
@@ -110,8 +110,8 @@ const LoginScreen = () => {
                 style={{ marginTop: 10 }}
               >
                 <Text style={authStyles.linkText}>
-                  Dont have an account?{" "}
-                  <Text style={authStyles.linkTextBold}>Sign Up</Text>
+                  ¿Aún no tienes cuenta?{" "}
+                  <Text style={authStyles.linkTextBold}>Registrarme</Text>
                 </Text>
               </TouchableOpacity>
 

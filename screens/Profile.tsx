@@ -13,6 +13,8 @@ import ProfileHeader from "../components/ProfileHeader/ProfileHeader";
 import ProfileInfo from "../components/ProfileInfo/ProfileInfo";
 import EditProfileButton from "../components/EditProfileButton/EditProfileButton";
 
+import EditProfileModal from "../components/EditProfileModal/EditProfileModal";
+
 import PostCard from "../components/PostCard/PostCard";
 
 const API_URL = "https://backend-hibridas.vercel.app";
@@ -20,7 +22,10 @@ const API_URL = "https://backend-hibridas.vercel.app";
 const ProfileScreen = () => {
 
   const [user, setUser] = useState(null);
+
   const [posts, setPosts] = useState([]);
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   // 🔥 CARGAR USUARIO + POSTS
   useEffect(() => {
@@ -28,20 +33,15 @@ const ProfileScreen = () => {
     const loadData = async () => {
 
       try {
-
-        const storedUser = await AsyncStorage.getItem("user");
-
+        const storedUser =
+          await AsyncStorage.getItem("user");
         if (storedUser) {
-
-          const parsedUser = JSON.parse(storedUser);
-
+          const parsedUser =
+            JSON.parse(storedUser);
           setUser(parsedUser);
-
-          // 🔥 TRAER POSTS DEL USUARIO
           const response = await fetch(
             `${API_URL}/posts/user/${parsedUser.id}`
           );
-
           const data = await response.json();
 
           console.log("USER POSTS:", data);
@@ -52,7 +52,10 @@ const ProfileScreen = () => {
 
       } catch (error) {
 
-        console.log("ERROR PROFILE:", error);
+        console.log(
+          "ERROR PROFILE:",
+          error
+        );
 
       }
     };
@@ -79,7 +82,20 @@ const ProfileScreen = () => {
             posts={posts}
           />
 
-          <EditProfileButton />
+          <EditProfileButton
+            onPress={() =>
+              setModalVisible(true)
+            }
+          />
+
+          <EditProfileModal
+            visible={modalVisible}
+            onClose={() =>
+              setModalVisible(false)
+            }
+            user={user}
+            setUser={setUser}
+          />
 
           {/* 🔥 POSTS */}
           {posts.map((post) => (
@@ -92,6 +108,7 @@ const ProfileScreen = () => {
         </ScrollView>
 
       </View>
+
     </View>
   );
 };

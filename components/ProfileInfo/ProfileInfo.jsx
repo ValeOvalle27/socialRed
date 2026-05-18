@@ -22,7 +22,7 @@ const ProfileInfo = ({ user, posts }) => {
         </Text>
 
         <Text style={profileStyles.bio}>
-          Just for fun 📸
+          Solo es diversión... 📸
         </Text>
 
       </View>

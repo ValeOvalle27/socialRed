@@ -29,7 +29,7 @@ const CreatePostInput = ({
         </Text>
 
         <TextInput
-          placeholder="Capture your idea..."
+          placeholder="Escribe tu idea"
           placeholderTextColor="#444"
           multiline={true}
           style={postStyles.textInput}
