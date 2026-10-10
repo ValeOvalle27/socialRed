@@ -16,6 +16,8 @@ import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import feedStyles from "../../styles/feedStyles";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 
 const API_URL = "https://backend-hibridas.vercel.app";
 
@@ -78,7 +80,7 @@ const CommentsModal = ({ visible, onClose, postId }) => {
         style={{ flex: 1 }}
       >
         <View style={feedStyles.commentsOverlay}>
-          <View style={feedStyles.commentsContainer}>
+          <SafeAreaView style={feedStyles.commentsContainer}>
             <View style={feedStyles.commentsHandle} />
 
             <View style={feedStyles.commentsHeader}>
@@ -129,7 +131,7 @@ const CommentsModal = ({ visible, onClose, postId }) => {
                 <Ionicons name="send" size={20} color="black" />
               </TouchableOpacity>
             </View>
-          </View>
+          </SafeAreaView>
         </View>
       </KeyboardAvoidingView>
     </Modal>
