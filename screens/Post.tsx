@@ -14,6 +14,7 @@ import { postStyles } from "../styles/postStyles";
 
 import CreatePostHeader from "../components/PostHeader/PostHeader";
 import CreatePostInput from "../components/PostInput/PostInput";
+import { postManager } from "../services/PostManager";
 
 const API_URL = "https://backend-hibridas.vercel.app";
 
@@ -65,9 +66,8 @@ export default function CreatePostScreen() {
       );
 
       if (response.ok) {
-
+        postManager.createPost();
         router.back();
-
       }
 
     } catch (error) {
