@@ -1,77 +1,63 @@
-import React, { useState, useCallback } from "react";
-
-import {
-  View,
-  FlatList,
-  StatusBar,
-  RefreshControl,
-} from "react-native";
-
 import { useFocusEffect } from "expo-router";
-
-import feedStyles from "../styles/feedStyles";
+import React, { useCallback, useEffect, useState } from "react";
+import { FlatList, RefreshControl, StatusBar, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import HeaderFeed from "../components/Header/HeaderFeed";
 import PostCard from "../components/PostCard/PostCard";
-import { SafeAreaView } from "react-native-safe-area-context";
+import feedStyles from "../styles/feedStyles";
+
+import { PostAdapter } from "../services/PostAdapter"; // Patrón Estructural (Adapter)
+import { postManager } from "../services/PostManager"; // Patrón Comportamiento (Observer)
 
 const API_URL = "https://backend-hibridas.vercel.app";
 
 const FeedScreen = () => {
-
   const [posts, setPosts] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
   const fetchPosts = async () => {
     try {
-
       const response = await fetch(`${API_URL}/posts/`);
       const data = await response.json();
 
-      console.log("POSTS:", data);
+      //PATRÓN ADAPTER
+      const postsAdaptados = PostAdapter.adapterList(data);
 
-      setPosts(data);
-
+      setPosts(postsAdaptados);
     } catch (error) {
-
       console.log("ERROR POSTS:", error);
-
     }
   };
 
-  // 🔥 CARGA POSTS AL ABRIR PANTALLA
+  //PATRÓN OBSERVER
+  useEffect(() => {
+    const unsubscribe = postManager.subscribe(() => {
+      fetchPosts(); // Al recibir aviso, pide los datos y los pasa por el Adapter
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   useFocusEffect(
     useCallback(() => {
       fetchPosts();
     }, [])
   );
 
-  // 🔄 PULL TO REFRESH
   const onRefresh = async () => {
-
     setRefreshing(true);
-
     await fetchPosts();
-
     setRefreshing(false);
-
   };
 
-  const renderItem = ({ item }) => (
-    <PostCard item={item} />
-  );
+  const renderItem = ({ item }: { item: any }) => <PostCard item={item} />;
 
   return (
-     <SafeAreaView
-    style={feedStyles.mainContainer}
-    edges={["top"]}
-  >
+    <SafeAreaView style={feedStyles.mainContainer} edges={["top"]}>
       <StatusBar barStyle="light-content" />
-
       <View style={feedStyles.contentWrapper}>
-
         <HeaderFeed />
-
         <FlatList
           data={posts}
           renderItem={renderItem}
@@ -79,13 +65,9 @@ const FeedScreen = () => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 100 }}
           refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-            />
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
         />
-
       </View>
     </SafeAreaView>
   );
